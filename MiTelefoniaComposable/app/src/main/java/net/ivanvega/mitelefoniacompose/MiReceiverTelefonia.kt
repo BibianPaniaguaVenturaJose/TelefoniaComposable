@@ -7,11 +7,22 @@ import android.os.Bundle
 import android.provider.Telephony
 import android.telephony.SmsMessage
 import android.util.Log
+import android.telephony.TelephonyManager
 import android.widget.Toast
 
 
 class MiReceiverTelefonia: BroadcastReceiver()
 {
+    companion object {
+        private var isRinging: Boolean = false
+    }
+
+    object ScreenViewModelSingleton {
+        private val viewModel = ScreenViewModel()
+        fun getInstance(): ScreenViewModel {
+            return viewModel
+        }
+    }
 
 
     override fun onReceive(p0: Context?, intent: Intent?) {
@@ -34,33 +45,36 @@ class MiReceiverTelefonia: BroadcastReceiver()
                 smms[i] = SmsMessage.createFromPdu(pdus!![i] as ByteArray)
                 strMensaje +="${"Mensaje: " + smms[i]?.getOriginatingAddress()}\n" +
                         "${smms[i]?.getMessageBody().toString()}"
-
-
             }
             Log.d("MiBroadcast", strMensaje)
+        } else if (action == TelephonyManager.ACTION_PHONE_STATE_CHANGED) {
+            val extras = intent?.extras
+            if (extras != null) {
+                val state = extras.getString(TelephonyManager.EXTRA_STATE)
+
+                if (state == TelephonyManager.EXTRA_STATE_RINGING) {
+                    isRinging = true
+                    Log.d("Llamada", "Sonando $isRinging")
+                } else if (state == TelephonyManager.EXTRA_STATE_OFFHOOK) {
+                    isRinging = false
+                    Log.d("Llamada", "Tomo llamada $isRinging")
+                } else if (state == TelephonyManager.EXTRA_STATE_IDLE && isRinging) {
+
+                    Log.d("Llamada", "Dejo de sonar $isRinging")
+                    val viewModel = ScreenViewModelSingleton.getInstance()
+                    viewModel.sendSMS()
+                    isRinging = false
+
+                }
+            }
         }
 
-
-        //Log.d("MiBroadcast", action)
-        //Log.d("MiBroadcast", uri.toString());
-        //Log.d("MiBroadcast", uri.toString());
-        /*Toast.makeText(
-            context.getApplicationContext(),
-            action, Toast.LENGTH_SHORT
-        ).show()
-
-        Toast.makeText(
-            context.getApplicationContext(),
-            strMensaje, Toast.LENGTH_SHORT
-        ).show()*/
 
         val sb = StringBuilder()
         sb.append("Action: " + intent?.getAction() + "\n")
         sb.append("URI: " + intent?.toUri(Intent.URI_INTENT_SCHEME).toString() + "\n")
         val log = sb.toString()
-        /*Log.d(TAG, log)
-        Toast.makeText(context, log, Toast.LENGTH_LONG).show()*/
-
+        Log.d("MiBroadcast", log)
 
     }
 }

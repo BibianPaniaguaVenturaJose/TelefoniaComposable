@@ -7,9 +7,9 @@ class ScreenViewModel: ViewModel() {
 
     fun sendSMS(){
         val smsManage = SmsManager.getDefault()
-        smsManage.sendTextMessage("4451234567",
+        smsManage.sendTextMessage("431162267",
             null,
-            "CUerpo del mensahe de texto",null,null
+            "Te llamo depues, de momento no puedo",null,null
             )
 
     }

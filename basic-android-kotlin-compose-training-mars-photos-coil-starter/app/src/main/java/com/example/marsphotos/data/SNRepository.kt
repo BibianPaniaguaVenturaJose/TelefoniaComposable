@@ -67,8 +67,8 @@ class NetworSNRepository(
 
     suspend fun callHTTPS(){
         // Datos para la petición
-        val matricula = "s20120999"
-        val contrasenia = "MIPASS"
+        val matricula = "s19120170"
+        val contrasenia = "8TM=-a4N"
         val tipoUsuario = "ALUMNO" // o "DOCENTE", según corresponda
 
         // URL del servicio web SOAP

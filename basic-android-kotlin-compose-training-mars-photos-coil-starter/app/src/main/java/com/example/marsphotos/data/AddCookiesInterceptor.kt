@@ -1,4 +1,4 @@
-import android.content.Context
+package com.example.marsphotos.data android.content.Context
 import android.preference.PreferenceManager
 import okhttp3.Interceptor
 import okhttp3.Request

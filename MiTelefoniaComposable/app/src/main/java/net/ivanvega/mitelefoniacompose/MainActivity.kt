@@ -78,9 +78,6 @@ fun SystemBroadcastReceiver(
 
 @Composable
 fun HomeScreen() {
-
-
-
     SystemBroadcastReceiver(Telephony.Sms.Intents.SMS_RECEIVED_ACTION) { intent ->
         val isCharging = /* Get from batteryStatus ... */ true
         /* Do something if the device is charging */

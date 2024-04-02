@@ -17,6 +17,7 @@ data class EnvelopeSobreAcceso(
     @field:Element(name = "soap:Body", required = false)
     @param:Element(name = "soap:Body", required = false)
     val body: BodyAccesoResponse? = null
+    //val body: BodyAccesoResponse? = null
 )
 
 @Serializable
@@ -30,6 +31,7 @@ data class BodyAccesoResponse(
     @Element(name = "accesoLoginResponse")
     @Namespace(reference = "http://tempuri.org/")
     val accesoLoginResponse: AccesoLoginResponse? = null
+    //val accesoLoginResponse: AccesoLoginResponse? = null
 )
 
 @Serializable
@@ -42,4 +44,5 @@ data class AccesoLoginResponse (
     @Element(name = "accesoLoginResult")
     @Namespace(reference = "http://tempuri.org/")
     val accesoLoginResult: String? = null
+    //val htmlContent: String? = null
 )
