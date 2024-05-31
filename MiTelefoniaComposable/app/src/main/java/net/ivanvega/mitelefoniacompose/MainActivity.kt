@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
-        text = "Hello $name!",
+        text = "$name!",
         modifier = modifier
     )
 }
@@ -95,8 +95,8 @@ fun HomeScreen() {
         Log.d("MiBroadcastEnEjecucion", strMensaje)
 
     }
-    Greeting(name = "Hola Mundo")
-    /* Rest of the HomeScreen */
+    Greeting(name = "Respuesta Automatica")
+
 }
 
 @Preview(showBackground = true)

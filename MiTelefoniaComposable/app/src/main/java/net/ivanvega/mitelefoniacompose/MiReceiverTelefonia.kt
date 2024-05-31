@@ -25,18 +25,18 @@ class MiReceiverTelefonia: BroadcastReceiver()
     }
 
 
-    override fun onReceive(p0: Context?, intent: Intent?) {
+    override fun onReceive(context: Context?, intent: Intent?) {
         val action: String? = intent?.getAction()
-        //Uri uri = intent.getData();
+
         action?.let { Log.d("MiBroadcast", it) }
          var strMensaje: String = ""
-        //Uri uri = intent.getData();
-        if (action == Intent.ACTION_BOOT_COMPLETED) {
+
+        /*if (action == Intent.ACTION_BOOT_COMPLETED) {
         }
         if (Intent.ACTION_INPUT_METHOD_CHANGED === action) {
         }
         if (action == Intent.ACTION_BOOT_COMPLETED) {
-        }
+        }*/
         if (action == Telephony.Sms.Intents.SMS_RECEIVED_ACTION) {
             val bndSMS: Bundle? = intent?.getExtras()
             val pdus = bndSMS?.get("pdus") as Array<Any>?
@@ -64,7 +64,6 @@ class MiReceiverTelefonia: BroadcastReceiver()
                     val viewModel = ScreenViewModelSingleton.getInstance()
                     viewModel.sendSMS()
                     isRinging = false
-
                 }
             }
         }
